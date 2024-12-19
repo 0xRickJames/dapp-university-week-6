@@ -1,5 +1,5 @@
-const { expect } = require('chai');
-const { ethers } = require('hardhat');
+const { expect } = require('chai')
+const { ethers } = require('hardhat')
 
 const tokens = (n) => {
   return ethers.utils.parseUnits(n.toString(), 'ether')
@@ -8,7 +8,6 @@ const tokens = (n) => {
 const ether = tokens
 
 describe('Functions', () => {
-
   describe('Example 1', () => {
     let contract, deployer
 
@@ -54,7 +53,7 @@ describe('Functions', () => {
     let contract
 
     beforeEach(async () => {
-      const Contract = await ethers.getContractFactory('Functions3')
+      const Contract = await ethers.getContractFactory('Functions2')
       contract = await Contract.deploy()
     })
 
@@ -62,18 +61,15 @@ describe('Functions', () => {
       await contract.increment()
       expect(await contract.count()).to.equal(1)
     })
-
   })
 
   describe('Example 3', () => {
-
     it('calls a function from outside the contract', async () => {
       const Contract = await ethers.getContractFactory('Functions3')
       let contract = await Contract.deploy()
       await contract.increment()
       expect(await contract.count()).to.equal(1)
     })
-
   })
 
   describe('Example 4', () => {
@@ -120,7 +116,6 @@ describe('Functions', () => {
       await contract.increment7()
       expect(await contract.count()).to.equal(1)
     })
-
   })
 
   describe('Example 5', () => {
@@ -136,14 +131,13 @@ describe('Functions', () => {
     })
 
     it('demonstrates pure function', async () => {
-      expect(await contract.add(1,2)).to.equal(3)
+      expect(await contract.add(1, 2)).to.equal(3)
     })
 
     it('demonstrates payable function', async () => {
       await contract.pay({ value: ether(1) })
       expect(await contract.balance()).to.equal(ether(1))
     })
-
   })
 
   describe('Example 6', () => {
@@ -168,9 +162,7 @@ describe('Functions', () => {
       expect(await contract.name()).to.equal('New name')
       expect(await contract.connect(owner).setName1('New name')).to.be.reverted
     })
-
   })
-
 
   describe('Example 7', () => {
     let contract
@@ -215,16 +207,17 @@ describe('Functions', () => {
     it('uses events to inspect return values on write functions', async () => {
       let transaction = await contract.setName1()
       let result = await transaction.wait()
-      await expect(transaction).to.emit(contract, 'NameChanged')
+      await expect(transaction)
+        .to.emit(contract, 'NameChanged')
         .withArgs('New name')
     })
 
     it('can read return values from write functions inside the conract', async () => {
       let transaction = await contract.setName3()
       let result = await transaction.wait()
-      await expect(transaction).to.emit(contract, 'NameChanged')
+      await expect(transaction)
+        .to.emit(contract, 'NameChanged')
         .withArgs('New name')
     })
-
   })
 })

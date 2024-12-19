@@ -1,17 +1,14 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
+import 'hardhat/console.sol';
 
 // State variable with default value
 // Solidity will expose a "name()" function with public visibility
 contract Variables1 {
-    string public name = "Example 1";
+    string public name = 'Example 1';
 }
 
-// Constructor assigns state variable
-// Local variable in function
-// Local variable uses underscore prefix naming convention
 contract Variables2 {
     string public name;
 
@@ -20,10 +17,6 @@ contract Variables2 {
     }
 }
 
-// Functions can assign state variables
-// Functions can read state variables
-// Name is a blank string ("") by default
-// Solidity will not expose a "name()" function without public visibility
 contract Variables3 {
     string name;
 
@@ -31,32 +24,29 @@ contract Variables3 {
         name = _name;
     }
 
-    function getName() public view returns(string memory) {
+    function getName() public view returns (string memory) {
         return name;
     }
 }
 
-// Constants are set in the contract
-// Immutable can be set in constructor, but should not change
 contract Variables4 {
-    string constant NAME = "Example 4";
+    string constant NAME = 'Example 4';
     address immutable OWNER;
 
     constructor() {
         OWNER = msg.sender;
     }
 
-    function name() public pure returns(string memory) {
+    function name() public pure returns (string memory) {
         return NAME;
     }
 
-    function owner() public view returns(address) {
+    function owner() public view returns (address) {
         return OWNER;
     }
 }
 
-// Global vairables: this, msg, tx, block
-// https://docs.soliditylang.org/en/v0.8.16/cheatsheet.html?highlight=global%20variables#global-variables
+// Global variables: this, msg, tx, block
 contract Variables5 {
     address public contractAddress;
     address public payer;
@@ -73,35 +63,21 @@ contract Variables5 {
         amount = msg.value;
     }
 
-    function getBlockInfo() public view returns(uint, uint, uint) {
-        return(
-            block.number,
-            block.timestamp,
-            block.chainid
-        );
+    function getBlockInfo() public view returns (uint, uint, uint) {
+        return (block.number, block.timestamp, block.chainid);
     }
 }
 
 // Visibility
 // Homework: demonstrate these in tests
-// Hint: https://www.tutorialspoint.com/solidity/solidity_variable_scope.htm
-contract Variables6 {
+contract Variable6 {
     // No visibility
     // Defaults to internal
-    string name1 = "Name 1";
+    string name1 = 'Name 1';
     // Private variables can only be accessed inside the current contract
-    // They *cannot* be accessed outside the conract
-    // They *cannot* be accessed from another contract or inherited
-    // Note: private variables are not truly private; anyone can decode the value
-    string private name2 = "Name 2";
+    string private name2 = 'Name 2';
     // Internal variables can only be accessed internally
-    // They *cannot* be accessed outside the conract
-    // They *cannot* be accessed from another contract
-    // They *can* be inherited by another contract
-    string internal name3 = "Name 3";
-    // Public variables can be accessed internally and externally
-    // They *can* be accessed outside the conract
-    // They *can* be accessed from another contract
-    // They *can* be inherited by another contract
-    string public name4 = "Name 4";
+    string internal name3 = 'Name 3';
+    // Public variables can beaccessed internally and externally
+    string public name4 = 'Name 4';
 }
